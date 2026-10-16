@@ -4,8 +4,16 @@ const ENV_FILES: &[&str] = &[".env", ".env.local"];
 
 #[derive(Debug, Deserialize)]
 pub struct Config {
-    bootstrap_ip: String,
-    port: i32,
+    pub bootstrap_ip: String,
+    pub port: i32,
+    #[serde(default = "default_log_filter")]
+    pub rust_log: String,
+    #[serde(default)]
+    pub log_pretty: bool,
+}
+
+fn default_log_filter() -> String {
+    "info".to_owned()
 }
 
 pub fn load_config() -> Result<Config, Box<dyn std::error::Error>> {
