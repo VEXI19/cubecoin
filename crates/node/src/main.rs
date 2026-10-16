@@ -1,10 +1,10 @@
-use crate::config::load_config;
+use crate::config::Config;
+use cubecoin_core::{config::load_config, logging};
 
 mod config;
-mod logging;
 
 fn main() {
-    let config = match load_config() {
+    let config: Config = match load_config() {
         Ok(config) => config,
         Err(error) => {
             eprintln!("failed to load configuration: {error}");
@@ -12,12 +12,12 @@ fn main() {
         }
     };
 
-    if let Err(error) = logging::init(&config.rust_log, config.log_pretty) {
+    if let Err(error) = logging::init(&config.logging) {
         eprintln!("failed to initialize logger: {error}");
         std::process::exit(1);
     }
 
-    tracing::info!("logging initialized");
+    tracing::debug!("logging initialized");
 
     if let Err(error) = run() {
         tracing::error!(error = %error, "application failed");

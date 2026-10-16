@@ -2,12 +2,17 @@ use std::error::Error;
 
 use tracing_subscriber::EnvFilter;
 
-pub fn init(filter: &str, pretty: bool) -> Result<(), Box<dyn Error>> {
-    let filter = EnvFilter::try_new(filter).map_err(|error| {
-        std::io::Error::other(format!("invalid RUST_LOG filter '{filter}': {error}"))
+use crate::config::LoggingConfig;
+
+pub fn init(config: &LoggingConfig) -> Result<(), Box<dyn Error>> {
+    let filter = EnvFilter::try_new(&config.rust_log).map_err(|error| {
+        std::io::Error::other(format!(
+            "invalid RUST_LOG filter '{}': {error}",
+            config.rust_log
+        ))
     })?;
 
-    if pretty {
+    if config.log_pretty {
         tracing_subscriber::fmt()
             .with_env_filter(filter)
             .pretty()

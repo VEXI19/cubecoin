@@ -18,14 +18,31 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4e7648175b45a9a48536d676f68d918270699102aa8dab5496df06904c914600"
 
 [[package]]
-name = "cubecoin"
+name = "cubecoin-core"
 version = "0.1.0"
 dependencies = [
  "dotenvy",
  "envy",
  "serde",
- "tracing",
  "tracing-subscriber",
+]
+
+[[package]]
+name = "cubecoin-node"
+version = "0.1.0"
+dependencies = [
+ "cubecoin-core",
+ "serde",
+ "tracing",
+]
+
+[[package]]
+name = "cubecoin-wallet"
+version = "0.1.0"
+dependencies = [
+ "cubecoin-core",
+ "serde",
+ "tracing",
 ]
 
 [[package]]

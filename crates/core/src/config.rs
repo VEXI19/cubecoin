@@ -1,14 +1,12 @@
-use serde::Deserialize;
+use serde::{Deserialize, Deserializer, de::DeserializeOwned};
 
-const ENV_FILES: &[&str] = &[".env", ".env.local"];
+const ENV_FILES: &[&str] = &[".env", ".env.node", ".env.client"];
 
 #[derive(Debug, Deserialize)]
-pub struct Config {
-    pub bootstrap_ip: String,
-    pub port: i32,
+pub struct LoggingConfig {
     #[serde(default = "default_log_filter")]
     pub rust_log: String,
-    #[serde(default)]
+    #[serde(default, deserialize_with = "deserialize_bool")]
     pub log_pretty: bool,
 }
 
@@ -16,7 +14,15 @@ fn default_log_filter() -> String {
     "info".to_owned()
 }
 
-pub fn load_config() -> Result<Config, Box<dyn std::error::Error>> {
+fn deserialize_bool<'de, D>(deserializer: D) -> Result<bool, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    let value = String::deserialize(deserializer)?;
+    value.parse().map_err(serde::de::Error::custom)
+}
+
+pub fn load_config<T: DeserializeOwned>() -> Result<T, Box<dyn std::error::Error>> {
     let env_file = ENV_FILES
         .iter()
         .copied()
@@ -33,11 +39,11 @@ pub fn load_config() -> Result<Config, Box<dyn std::error::Error>> {
 
     dotenvy::from_filename(env_file)
         .map_err(|error| std::io::Error::other(format!("failed to load {env_file}: {error}")))?;
-    let config: Config = envy::from_env().map_err(|error| {
+
+    envy::from_env().map_err(|error| {
         std::io::Error::other(format!(
             "failed to parse environment configuration: {error}"
         ))
-    })?;
-
-    Ok(config)
+        .into()
+    })
 }
