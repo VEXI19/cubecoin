@@ -17,6 +17,7 @@ fn main() {
         std::process::exit(1);
     }
 
+    tracing::debug!("configuration loaded");
     tracing::debug!("logging initialized");
 
     if let Err(error) = run() {
@@ -26,7 +27,7 @@ fn main() {
 }
 
 fn run() -> Result<(), Box<dyn std::error::Error>> {
-    tracing::info!("application started");
+    tracing::info!("node started");
 
     Ok(())
 }

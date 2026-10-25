@@ -15,11 +15,13 @@ pub fn init(config: &LoggingConfig) -> Result<(), Box<dyn Error>> {
     if config.log_pretty {
         tracing_subscriber::fmt()
             .with_env_filter(filter)
+            .with_writer(std::io::stderr)
             .pretty()
             .try_init()
     } else {
         tracing_subscriber::fmt()
             .with_env_filter(filter)
+            .with_writer(std::io::stderr)
             .json()
             .try_init()
     }

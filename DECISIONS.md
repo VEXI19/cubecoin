@@ -9,6 +9,12 @@
 
 # Potwierdzenie tożsamości
 - tworzenie kluczy Ed25519
+    - Nonce generation
+    - Signature malleability
+    - Curve point encoding
+    - Low-s normalization
+    - Public-key recovery conventions
+- address = bech32m(sha256(public_key)) with address version
 - id na podstawie klucza publicznego
 
 # Format wiadomości - ProtoBuff
