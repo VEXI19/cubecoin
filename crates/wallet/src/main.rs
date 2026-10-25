@@ -1,6 +1,9 @@
 use crate::config::Config;
 use crate::identity::WalletIdentity;
-use cubecoin_core::{config::load_config, logging};
+use cubecoin_core::{
+    config::{LogFormat, load_config},
+    logging,
+};
 use std::io::Write;
 
 mod config;
@@ -15,7 +18,7 @@ fn main() {
         }
     };
 
-    if let Err(error) = logging::init(&config.logging) {
+    if let Err(error) = logging::init(&config.logging, LogFormat::Compact) {
         eprintln!("failed to initialize logger: {error}");
         std::process::exit(1);
     }
