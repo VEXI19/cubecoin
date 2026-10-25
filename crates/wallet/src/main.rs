@@ -4,7 +4,7 @@ use cubecoin_core::{config::load_config, logging};
 mod config;
 
 fn main() {
-    let config: Config = match load_config() {
+    let config: Config = match load_config(concat!(env!("CARGO_MANIFEST_DIR"), "/.env")) {
         Ok(config) => config,
         Err(error) => {
             eprintln!("failed to load configuration: {error}");
