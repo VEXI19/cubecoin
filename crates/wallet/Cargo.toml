@@ -4,9 +4,15 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+argon2 = { version = "0.6.0", default-features = false, features = ["alloc", "zeroize"] }
+chacha20poly1305 = { version = "0.11.0", default-features = false, features = ["alloc", "zeroize"] }
 cubecoin-core = { path = "../core" }
 ed25519-dalek = { version = "3.0.0", features = ["zeroize"] }
 getrandom = { version = "0.4.3", features = ["std"] }
+libc = "0.2"
+rpassword = "7.5.4"
 serde = { version = "1.0.229", features = ["derive"] }
+tempfile = "3.27.0"
+thiserror = "2.0.21"
 tracing = "0.1.44"
 zeroize = "1.9.1"

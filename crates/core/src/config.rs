@@ -33,7 +33,11 @@ pub fn load_config<T: DeserializeOwned>(
 ) -> Result<T, Box<dyn std::error::Error>> {
     let env_file = env_file.as_ref();
 
-    dotenvy::from_path(env_file).map_err(|error| dotenv_error(env_file, error))?;
+    match dotenvy::from_path(env_file) {
+        Ok(()) => {}
+        Err(error) if error.not_found() => {}
+        Err(error) => return Err(dotenv_error(env_file, error).into()),
+    }
 
     envy::from_env().map_err(|error| {
         let message = match error {

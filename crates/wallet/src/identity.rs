@@ -20,11 +20,14 @@ impl WalletIdentity {
         Address::from_ed25519_public_key(&self.signing_key.verifying_key().to_bytes())
     }
 
-    #[cfg(test)]
-    fn from_seed(seed: [u8; 32]) -> Self {
+    pub(crate) fn from_seed(seed: &[u8; 32]) -> Self {
         Self {
-            signing_key: SigningKey::from_bytes(&seed),
+            signing_key: SigningKey::from_bytes(seed),
         }
+    }
+
+    pub(crate) fn seed(&self) -> Zeroizing<[u8; 32]> {
+        Zeroizing::new(self.signing_key.to_bytes())
     }
 }
 
@@ -34,7 +37,7 @@ mod tests {
 
     #[test]
     fn a_fixed_seed_generates_a_stable_address() {
-        let identity = WalletIdentity::from_seed([0x42; 32]);
+        let identity = WalletIdentity::from_seed(&[0x42; 32]);
 
         assert_eq!(
             identity.address().to_string(),
