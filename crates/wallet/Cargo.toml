@@ -12,7 +12,9 @@ getrandom = { version = "0.4.3", features = ["std"] }
 libc = "0.2"
 rpassword = "7.5.4"
 serde = { version = "1.0.229", features = ["derive"] }
-tempfile = "3.27.0"
 thiserror = "2.0.21"
 tracing = "0.1.44"
 zeroize = "1.9.1"
+
+[dev-dependencies]
+tempfile = "3.27.0"

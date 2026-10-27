@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package cubecoin.p2p.v1;
+
+message Envelope {
+  uint32 version = 1;
+  uint64 message_id = 2;
+  uint64 reply_to = 3;
+  bool expects_reply = 4;
+
+  oneof body {
+    StreamOpen stream_open = 10;
+    Hello hello = 11;
+    Ping ping = 12;
+    Pong pong = 13;
+    GetPeers get_peers = 14;
+    Peers peers = 15;
+    ProtocolError error = 16;
+  }
+}
+
+enum StreamKind {
+  STREAM_KIND_UNSPECIFIED = 0;
+  STREAM_KIND_CONTROL = 1;
+}
+
+message StreamOpen {
+  StreamKind kind = 1;
+  uint32 version = 2;
+}
+
+message Hello {
+  bytes network_id = 1;
+  bytes node_id = 2;
+  PeerEndpoint endpoint = 3;
+}
+
+message Ping { bytes nonce = 1; }
+message Pong { bytes nonce = 1; }
+
+message GetPeers { uint32 limit = 1; }
+message Peers { repeated PeerRecord peers = 1; }
+
+message PeerRecord {
+  bytes node_id = 1;
+  PeerEndpoint endpoint = 2;
+}
+
+message PeerEndpoint {
+  oneof address {
+    bytes ipv4 = 1;
+    bytes ipv6 = 2;
+  }
+  uint32 port = 3;
+}
+
+enum ErrorCode {
+  ERROR_CODE_UNSPECIFIED = 0;
+  ERROR_CODE_MALFORMED_MESSAGE = 1;
+  ERROR_CODE_UNSUPPORTED_VERSION = 2;
+  ERROR_CODE_INVALID_REQUEST = 3;
+  ERROR_CODE_RATE_LIMITED = 4;
+}
+
+message ProtocolError {
+  ErrorCode code = 1;
+  string message = 2;
+  bool fatal = 3;
+}

@@ -1,0 +1,74 @@
+2026-10-26T22:32:13.819181Z INFO node identity created event=identity.created path=/tmp/cubecoin-nodes.2z0Jiw/node-0/identity.pk8
+2026-10-26T22:32:13.819639Z DEBUG self-signed node certificate created event=tls.certificate_created address=127.0.0.1 algorithm=ed25519
+2026-10-26T22:32:13.820461Z INFO P2P node listening event=node.listening node_id=4ad40451a027d0c7ee1cdae8a1abf038c191909562cdcdd5a9bf418bef24b901 address=127.0.0.1:5000 role=bootstrap
+2026-10-26T22:32:13.820547Z INFO node started event=node.started node_id=4ad40451a027d0c7ee1cdae8a1abf038c191909562cdcdd5a9bf418bef24b901 address=127.0.0.1:5000
+2026-10-26T22:32:13.975274Z DEBUG inbound QUIC connection established event=quic.inbound_established remote=127.0.0.1:5001
+2026-10-26T22:32:13.975959Z DEBUG peer certificate identity derived event=tls.peer_identity peer=7a53be5bd2a851ca1b9a1bfc993155c5380ca7a04cd816cca44838775d5a1c1d remote=127.0.0.1:5001 direction=inbound expected=None
+2026-10-26T22:32:13.979682Z DEBUG hello matches certificate identity event=hello.validated peer=7a53be5bd2a851ca1b9a1bfc993155c5380ca7a04cd816cca44838775d5a1c1d address=127.0.0.1:5001 observed_ip=127.0.0.1
+2026-10-26T22:32:13.980452Z DEBUG peer book entry created event=peer.book_inserted peer=7a53be5bd2a851ca1b9a1bfc993155c5380ca7a04cd816cca44838775d5a1c1d address=127.0.0.1:5001 verified=true
+2026-10-26T22:32:13.980838Z INFO P2P peer authenticated event=peer.authenticated peer=7a53be5bd2a851ca1b9a1bfc993155c5380ca7a04cd816cca44838775d5a1c1d address=127.0.0.1:5001 direction=inbound bootstrap=false observed_ip=127.0.0.1
+2026-10-26T22:32:13.981253Z DEBUG peer list requested event=pex.request_sent peer=7a53be5bd2a851ca1b9a1bfc993155c5380ca7a04cd816cca44838775d5a1c1d request_id=3 limit=32
+2026-10-26T22:32:13.988414Z DEBUG peer list served event=pex.request_received requester=7a53be5bd2a851ca1b9a1bfc993155c5380ca7a04cd816cca44838775d5a1c1d requested=32 returned=0
+2026-10-26T22:32:13.990068Z DEBUG peer list received event=pex.response_received from=7a53be5bd2a851ca1b9a1bfc993155c5380ca7a04cd816cca44838775d5a1c1d offered=0 request_id=3
+2026-10-26T22:32:13.990670Z DEBUG dial skipped event=discovery.dial_skipped peer=7a53be5bd2a851ca1b9a1bfc993155c5380ca7a04cd816cca44838775d5a1c1d reason=already_connected active=1 outbound=0
+2026-10-26T22:32:14.118563Z DEBUG inbound QUIC connection established event=quic.inbound_established remote=127.0.0.1:5002
+2026-10-26T22:32:14.119218Z DEBUG peer certificate identity derived event=tls.peer_identity peer=785354400cde00d8020676c267700ed3c0583ab8b21f8b249a92ec8e462244e6 remote=127.0.0.1:5002 direction=inbound expected=None
+2026-10-26T22:32:14.122769Z DEBUG hello matches certificate identity event=hello.validated peer=785354400cde00d8020676c267700ed3c0583ab8b21f8b249a92ec8e462244e6 address=127.0.0.1:5002 observed_ip=127.0.0.1
+2026-10-26T22:32:14.123359Z DEBUG peer book entry created event=peer.book_inserted peer=785354400cde00d8020676c267700ed3c0583ab8b21f8b249a92ec8e462244e6 address=127.0.0.1:5002 verified=true
+2026-10-26T22:32:14.123840Z INFO P2P peer authenticated event=peer.authenticated peer=785354400cde00d8020676c267700ed3c0583ab8b21f8b249a92ec8e462244e6 address=127.0.0.1:5002 direction=inbound bootstrap=false observed_ip=127.0.0.1
+2026-10-26T22:32:14.124495Z DEBUG peer list requested event=pex.request_sent peer=785354400cde00d8020676c267700ed3c0583ab8b21f8b249a92ec8e462244e6 request_id=3 limit=32
+2026-10-26T22:32:14.131512Z DEBUG peer list served event=pex.request_received requester=785354400cde00d8020676c267700ed3c0583ab8b21f8b249a92ec8e462244e6 requested=32 returned=1
+2026-10-26T22:32:14.133147Z DEBUG peer list received event=pex.response_received from=785354400cde00d8020676c267700ed3c0583ab8b21f8b249a92ec8e462244e6 offered=0 request_id=3
+2026-10-26T22:32:14.133772Z DEBUG dial skipped event=discovery.dial_skipped peer=7a53be5bd2a851ca1b9a1bfc993155c5380ca7a04cd816cca44838775d5a1c1d reason=already_connected active=2 outbound=0
+2026-10-26T22:32:14.134159Z DEBUG dial skipped event=discovery.dial_skipped peer=785354400cde00d8020676c267700ed3c0583ab8b21f8b249a92ec8e462244e6 reason=already_connected active=2 outbound=0
+2026-10-26T22:32:14.259484Z DEBUG inbound QUIC connection established event=quic.inbound_established remote=127.0.0.1:5003
+2026-10-26T22:32:14.260262Z DEBUG peer certificate identity derived event=tls.peer_identity peer=c22205ba8d99929c2fe7fcef9b9facface75715763691e912e7d573557c80820 remote=127.0.0.1:5003 direction=inbound expected=None
+2026-10-26T22:32:14.263645Z DEBUG hello matches certificate identity event=hello.validated peer=c22205ba8d99929c2fe7fcef9b9facface75715763691e912e7d573557c80820 address=127.0.0.1:5003 observed_ip=127.0.0.1
+2026-10-26T22:32:14.264490Z DEBUG peer book entry created event=peer.book_inserted peer=c22205ba8d99929c2fe7fcef9b9facface75715763691e912e7d573557c80820 address=127.0.0.1:5003 verified=true
+2026-10-26T22:32:14.265102Z INFO P2P peer authenticated event=peer.authenticated peer=c22205ba8d99929c2fe7fcef9b9facface75715763691e912e7d573557c80820 address=127.0.0.1:5003 direction=inbound bootstrap=false observed_ip=127.0.0.1
+2026-10-26T22:32:14.265725Z DEBUG peer list requested event=pex.request_sent peer=c22205ba8d99929c2fe7fcef9b9facface75715763691e912e7d573557c80820 request_id=3 limit=32
+2026-10-26T22:32:14.273871Z DEBUG peer list served event=pex.request_received requester=c22205ba8d99929c2fe7fcef9b9facface75715763691e912e7d573557c80820 requested=32 returned=2
+2026-10-26T22:32:14.275854Z DEBUG peer list received event=pex.response_received from=c22205ba8d99929c2fe7fcef9b9facface75715763691e912e7d573557c80820 offered=0 request_id=3
+2026-10-26T22:32:14.276583Z DEBUG dial skipped event=discovery.dial_skipped peer=c22205ba8d99929c2fe7fcef9b9facface75715763691e912e7d573557c80820 reason=already_connected active=3 outbound=0
+2026-10-26T22:32:14.277240Z DEBUG dial skipped event=discovery.dial_skipped peer=7a53be5bd2a851ca1b9a1bfc993155c5380ca7a04cd816cca44838775d5a1c1d reason=already_connected active=3 outbound=0
+2026-10-26T22:32:14.277865Z DEBUG dial skipped event=discovery.dial_skipped peer=785354400cde00d8020676c267700ed3c0583ab8b21f8b249a92ec8e462244e6 reason=already_connected active=3 outbound=0
+2026-10-26T22:32:14.401267Z DEBUG inbound QUIC connection established event=quic.inbound_established remote=127.0.0.1:5004
+2026-10-26T22:32:14.401982Z DEBUG peer certificate identity derived event=tls.peer_identity peer=94259824ce470aa53f720e3e71f76cd187781aadaaddba76ae6d067205f8c906 remote=127.0.0.1:5004 direction=inbound expected=None
+2026-10-26T22:32:14.405790Z DEBUG hello matches certificate identity event=hello.validated peer=94259824ce470aa53f720e3e71f76cd187781aadaaddba76ae6d067205f8c906 address=127.0.0.1:5004 observed_ip=127.0.0.1
+2026-10-26T22:32:14.406512Z DEBUG peer book entry created event=peer.book_inserted peer=94259824ce470aa53f720e3e71f76cd187781aadaaddba76ae6d067205f8c906 address=127.0.0.1:5004 verified=true
+2026-10-26T22:32:14.407061Z INFO P2P peer authenticated event=peer.authenticated peer=94259824ce470aa53f720e3e71f76cd187781aadaaddba76ae6d067205f8c906 address=127.0.0.1:5004 direction=inbound bootstrap=false observed_ip=127.0.0.1
+2026-10-26T22:32:14.407617Z DEBUG peer list requested event=pex.request_sent peer=94259824ce470aa53f720e3e71f76cd187781aadaaddba76ae6d067205f8c906 request_id=3 limit=32
+2026-10-26T22:32:14.414373Z DEBUG peer list served event=pex.request_received requester=94259824ce470aa53f720e3e71f76cd187781aadaaddba76ae6d067205f8c906 requested=32 returned=3
+2026-10-26T22:32:14.415585Z DEBUG peer list received event=pex.response_received from=94259824ce470aa53f720e3e71f76cd187781aadaaddba76ae6d067205f8c906 offered=0 request_id=3
+2026-10-26T22:32:14.416120Z DEBUG dial skipped event=discovery.dial_skipped peer=c22205ba8d99929c2fe7fcef9b9facface75715763691e912e7d573557c80820 reason=already_connected active=4 outbound=0
+2026-10-26T22:32:14.416567Z DEBUG dial skipped event=discovery.dial_skipped peer=94259824ce470aa53f720e3e71f76cd187781aadaaddba76ae6d067205f8c906 reason=already_connected active=4 outbound=0
+2026-10-26T22:32:14.417035Z DEBUG dial skipped event=discovery.dial_skipped peer=7a53be5bd2a851ca1b9a1bfc993155c5380ca7a04cd816cca44838775d5a1c1d reason=already_connected active=4 outbound=0
+2026-10-26T22:32:14.417465Z DEBUG dial skipped event=discovery.dial_skipped peer=785354400cde00d8020676c267700ed3c0583ab8b21f8b249a92ec8e462244e6 reason=already_connected active=4 outbound=0
+2026-10-26T22:32:14.509679Z DEBUG inbound QUIC connection established event=quic.inbound_established remote=127.0.0.1:5005
+2026-10-26T22:32:14.509901Z DEBUG peer certificate identity derived event=tls.peer_identity peer=cb35334fb0e2059983daab52b92415c34ffce2fdab451aab8dab53b779d63543 remote=127.0.0.1:5005 direction=inbound expected=None
+2026-10-26T22:32:14.511416Z DEBUG hello matches certificate identity event=hello.validated peer=cb35334fb0e2059983daab52b92415c34ffce2fdab451aab8dab53b779d63543 address=127.0.0.1:5005 observed_ip=127.0.0.1
+2026-10-26T22:32:14.511619Z DEBUG peer book entry created event=peer.book_inserted peer=cb35334fb0e2059983daab52b92415c34ffce2fdab451aab8dab53b779d63543 address=127.0.0.1:5005 verified=true
+2026-10-26T22:32:14.511753Z INFO P2P peer authenticated event=peer.authenticated peer=cb35334fb0e2059983daab52b92415c34ffce2fdab451aab8dab53b779d63543 address=127.0.0.1:5005 direction=inbound bootstrap=false observed_ip=127.0.0.1
+2026-10-26T22:32:14.511902Z DEBUG peer list requested event=pex.request_sent peer=cb35334fb0e2059983daab52b92415c34ffce2fdab451aab8dab53b779d63543 request_id=3 limit=32
+2026-10-26T22:32:14.514043Z DEBUG peer list served event=pex.request_received requester=cb35334fb0e2059983daab52b92415c34ffce2fdab451aab8dab53b779d63543 requested=32 returned=4
+2026-10-26T22:32:14.514443Z DEBUG peer list received event=pex.response_received from=cb35334fb0e2059983daab52b92415c34ffce2fdab451aab8dab53b779d63543 offered=0 request_id=3
+2026-10-26T22:32:14.514600Z DEBUG dial skipped event=discovery.dial_skipped peer=c22205ba8d99929c2fe7fcef9b9facface75715763691e912e7d573557c80820 reason=already_connected active=5 outbound=0
+2026-10-26T22:32:14.514748Z DEBUG dial skipped event=discovery.dial_skipped peer=94259824ce470aa53f720e3e71f76cd187781aadaaddba76ae6d067205f8c906 reason=already_connected active=5 outbound=0
+2026-10-26T22:32:14.514870Z DEBUG dial skipped event=discovery.dial_skipped peer=cb35334fb0e2059983daab52b92415c34ffce2fdab451aab8dab53b779d63543 reason=already_connected active=5 outbound=0
+2026-10-26T22:32:14.515014Z DEBUG dial skipped event=discovery.dial_skipped peer=7a53be5bd2a851ca1b9a1bfc993155c5380ca7a04cd816cca44838775d5a1c1d reason=already_connected active=5 outbound=0
+2026-10-26T22:32:14.515182Z DEBUG dial skipped event=discovery.dial_skipped peer=785354400cde00d8020676c267700ed3c0583ab8b21f8b249a92ec8e462244e6 reason=already_connected active=5 outbound=0
+2026-10-26T22:32:14.660643Z DEBUG inbound QUIC connection established event=quic.inbound_established remote=127.0.0.1:5006
+2026-10-26T22:32:14.661324Z DEBUG peer certificate identity derived event=tls.peer_identity peer=02291433108a8e774dd9663c3b3ab2e207c453fcb4d4fa4ba9be45e159f5b705 remote=127.0.0.1:5006 direction=inbound expected=None
+2026-10-26T22:32:14.664489Z DEBUG hello matches certificate identity event=hello.validated peer=02291433108a8e774dd9663c3b3ab2e207c453fcb4d4fa4ba9be45e159f5b705 address=127.0.0.1:5006 observed_ip=127.0.0.1
+2026-10-26T22:32:14.665072Z DEBUG peer book entry created event=peer.book_inserted peer=02291433108a8e774dd9663c3b3ab2e207c453fcb4d4fa4ba9be45e159f5b705 address=127.0.0.1:5006 verified=true
+2026-10-26T22:32:14.665450Z INFO P2P peer authenticated event=peer.authenticated peer=02291433108a8e774dd9663c3b3ab2e207c453fcb4d4fa4ba9be45e159f5b705 address=127.0.0.1:5006 direction=inbound bootstrap=false observed_ip=127.0.0.1
+2026-10-26T22:32:14.665851Z DEBUG peer list requested event=pex.request_sent peer=02291433108a8e774dd9663c3b3ab2e207c453fcb4d4fa4ba9be45e159f5b705 request_id=3 limit=32
+2026-10-26T22:32:14.672747Z DEBUG peer list served event=pex.request_received requester=02291433108a8e774dd9663c3b3ab2e207c453fcb4d4fa4ba9be45e159f5b705 requested=32 returned=5
+2026-10-26T22:32:14.674419Z DEBUG peer list received event=pex.response_received from=02291433108a8e774dd9663c3b3ab2e207c453fcb4d4fa4ba9be45e159f5b705 offered=0 request_id=3
+2026-10-26T22:32:14.674970Z DEBUG dial skipped event=discovery.dial_skipped peer=c22205ba8d99929c2fe7fcef9b9facface75715763691e912e7d573557c80820 reason=already_connected active=6 outbound=0
+2026-10-26T22:32:14.675363Z DEBUG dial skipped event=discovery.dial_skipped peer=02291433108a8e774dd9663c3b3ab2e207c453fcb4d4fa4ba9be45e159f5b705 reason=already_connected active=6 outbound=0
+2026-10-26T22:32:14.675745Z DEBUG dial skipped event=discovery.dial_skipped peer=94259824ce470aa53f720e3e71f76cd187781aadaaddba76ae6d067205f8c906 reason=already_connected active=6 outbound=0
+2026-10-26T22:32:14.676185Z DEBUG dial skipped event=discovery.dial_skipped peer=cb35334fb0e2059983daab52b92415c34ffce2fdab451aab8dab53b779d63543 reason=already_connected active=6 outbound=0
+2026-10-26T22:32:14.676688Z DEBUG dial skipped event=discovery.dial_skipped peer=7a53be5bd2a851ca1b9a1bfc993155c5380ca7a04cd816cca44838775d5a1c1d reason=already_connected active=6 outbound=0
+2026-10-26T22:32:14.677196Z DEBUG dial skipped event=discovery.dial_skipped peer=785354400cde00d8020676c267700ed3c0583ab8b21f8b249a92ec8e462244e6 reason=already_connected active=6 outbound=0
+2026-10-26T22:32:14.945573Z INFO shutdown signal received event=node.shutdown_requested

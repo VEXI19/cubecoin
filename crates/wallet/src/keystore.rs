@@ -1,16 +1,10 @@
 #![cfg(target_os = "linux")]
 
 use std::{
-    ffi::{CString, OsString},
-    fs::{self, DirBuilder, File},
+    ffi::OsString,
+    fs::{self, File},
     io::{Read, Write},
-    os::{
-        fd::FromRawFd,
-        unix::{
-            ffi::OsStrExt,
-            fs::{DirBuilderExt, MetadataExt, PermissionsExt},
-        },
-    },
+    os::unix::fs::{MetadataExt, PermissionsExt},
     path::{Path, PathBuf},
 };
 
@@ -19,11 +13,11 @@ use chacha20poly1305::{
     Tag, XChaCha20Poly1305, XNonce,
     aead::{AeadInOut, KeyInit},
 };
-use tempfile::NamedTempFile;
 use thiserror::Error;
 use zeroize::Zeroizing;
 
 use crate::identity::WalletIdentity;
+use cubecoin_core::secure_fs::{self, SecureFsError};
 
 const MAGIC: &[u8; 8] = b"CUBEWALT";
 const FORMAT_VERSION: u8 = 1;
@@ -235,38 +229,8 @@ impl Keystore {
     }
 
     fn write_new(&self, file: &WalletFile) -> Result<(), KeystoreError> {
-        let parent = self.path.parent().ok_or(KeystoreError::PathUnavailable)?;
-        let mut temporary = NamedTempFile::new_in(parent)
-            .map_err(|error| io_error("create temporary wallet file", error))?;
-        temporary
-            .as_file()
-            .set_permissions(fs::Permissions::from_mode(0o600))
-            .map_err(|error| io_error("set wallet file permissions", error))?;
-        temporary
-            .write_all(&file.bytes)
-            .map_err(|error| io_error("write wallet file", error))?;
-        temporary
-            .as_file()
-            .sync_all()
-            .map_err(|error| io_error("sync wallet file", error))?;
-
-        temporary.persist_noclobber(&self.path).map_err(|error| {
-            if error.error.kind() == std::io::ErrorKind::AlreadyExists {
-                KeystoreError::AlreadyExists
-            } else {
-                io_error("persist wallet file", error.error)
-            }
-        })?;
-
-        let metadata = fs::metadata(&self.path)
-            .map_err(|error| io_error("verify wallet file permissions", error))?;
-        validate_private_file(&metadata)?;
-
-        File::open(parent)
-            .and_then(|directory| directory.sync_all())
-            .map_err(|error| io_error("sync wallet directory", error))?;
-
-        Ok(())
+        secure_fs::write_private_file_noclobber(&self.path, &file.bytes)
+            .map_err(map_secure_fs_error)
     }
 
     fn read_file(&self) -> Result<WalletFile, KeystoreError> {
@@ -427,24 +391,10 @@ fn prompt_password(message: &str) -> Result<Zeroizing<String>, KeystoreError> {
 }
 
 fn ensure_private_directory(path: &Path) -> Result<(), KeystoreError> {
-    match fs::symlink_metadata(path) {
-        Ok(metadata) => validate_private_directory(&metadata),
-        Err(error) if error.kind() == std::io::ErrorKind::NotFound => {
-            let mut builder = DirBuilder::new();
-            builder.recursive(false).mode(0o700);
-            match builder.create(path) {
-                Ok(()) => {}
-                Err(error) if error.kind() == std::io::ErrorKind::AlreadyExists => {}
-                Err(error) => return Err(io_error("create wallet identity directory", error)),
-            }
-            let metadata = fs::symlink_metadata(path)
-                .map_err(|error| io_error("inspect wallet identity directory", error))?;
-            validate_private_directory(&metadata)
-        }
-        Err(error) => Err(io_error("inspect wallet identity directory", error)),
-    }
+    secure_fs::ensure_private_directory(path).map_err(map_secure_fs_error)
 }
 
+#[cfg(test)]
 fn validate_private_directory(metadata: &fs::Metadata) -> Result<(), KeystoreError> {
     if metadata.file_type().is_symlink()
         || !metadata.is_dir()
@@ -458,25 +408,7 @@ fn validate_private_directory(metadata: &fs::Metadata) -> Result<(), KeystoreErr
 }
 
 fn open_private_file(path: &Path) -> Result<File, KeystoreError> {
-    let path = CString::new(path.as_os_str().as_bytes()).map_err(|_| KeystoreError::UnsafeFile)?;
-    // SAFETY: `path` is a NUL-terminated C string built from the supplied Unix path.
-    // The returned descriptor is checked before ownership is transferred to `File` below.
-    let descriptor = unsafe {
-        libc::open(
-            path.as_ptr(),
-            libc::O_RDONLY | libc::O_CLOEXEC | libc::O_NOFOLLOW | libc::O_NONBLOCK | libc::O_NOCTTY,
-        )
-    };
-
-    if descriptor < 0 {
-        return Err(io_error(
-            "open wallet file",
-            std::io::Error::last_os_error(),
-        ));
-    }
-
-    // SAFETY: `descriptor` was returned by `open` above and has not yet been wrapped or closed.
-    Ok(unsafe { File::from_raw_fd(descriptor) })
+    secure_fs::open_private_file(path, FILE_LENGTH as u64).map_err(map_secure_fs_error)
 }
 
 fn validate_private_file(metadata: &fs::Metadata) -> Result<(), KeystoreError> {
@@ -494,6 +426,20 @@ fn validate_private_file(metadata: &fs::Metadata) -> Result<(), KeystoreError> {
 fn current_uid() -> u32 {
     // SAFETY: `geteuid` takes no pointers and has no Rust memory-safety preconditions.
     unsafe { libc::geteuid() }
+}
+
+fn map_secure_fs_error(error: SecureFsError) -> KeystoreError {
+    match error {
+        SecureFsError::AlreadyExists => KeystoreError::AlreadyExists,
+        SecureFsError::UnsafeDirectory => KeystoreError::UnsafeDirectory,
+        SecureFsError::UnsafeFile => KeystoreError::UnsafeFile,
+        SecureFsError::TooLarge => KeystoreError::InvalidLength,
+        SecureFsError::NotFound => io_error(
+            "open wallet file",
+            std::io::Error::new(std::io::ErrorKind::NotFound, "wallet file does not exist"),
+        ),
+        SecureFsError::Io { source, .. } => io_error("access wallet file", source),
+    }
 }
 
 fn io_error(operation: &'static str, source: std::io::Error) -> KeystoreError {
